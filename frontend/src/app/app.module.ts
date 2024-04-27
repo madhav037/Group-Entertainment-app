@@ -5,16 +5,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SignInPageComponent } from './sign-in-page/sign-in-page.component';
 import { SignUpPageComponent } from './sign-up-page/sign-up-page.component';
+import { HeroSectionPageComponent } from './hero-section-page/hero-section-page.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     SignInPageComponent,
-    SignUpPageComponent
+    SignUpPageComponent,
+    HeroSectionPageComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [
     provideClientHydration()

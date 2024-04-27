@@ -5,28 +5,28 @@
                 <img src="../../assets/Fresh Folk Jogging.png" alt="" class="w-full h-88" >
             </div>
             <div class="right-side flex flex-col my-20 w-1/2 text-xs me-10">
-                <form action="">
+                <form action="" [formGroup]="signInData" (ngSubmit)="postUserData(signInData.value)">
                     <div class="flex flex-col">
                         <div class=" font-extrabold text-3xl ">Sign In </div>
                         <div class="text-xs">Don't have an account? <a routerLink="/signup" class="underline text-blue-600">SignUp</a></div>
                     </div>
                     <div class="mt-10 flex flex-col gap-1">
-                        <div><label for="">email</label></div>
-                        <div><input type="email" placeholder="enter email" class="border outline-none bg-black w-full h-10 rounded-lg indent-2 focus:shadow-md focus:shadow-white"></div>
+                        <div><label for="email">email</label></div>
+                        <div><input type="email" id="email" formControlName="email" placeholder="enter email" class="border outline-none bg-black w-full h-10 rounded-lg indent-2 focus:shadow-md focus:shadow-white"></div>
                     </div>
                     <div class="mt-5 flex flex-col gap-1">
-                        <div><label for="">password</label></div>
-                        <div><input type="password" placeholder="enter password" class="border outline-none bg-black w-full h-10 rounded-lg indent-2 focus:shadow-md focus:shadow-white"></div>
+                        <div><label for="password">password</label></div>
+                        <div><input [type]="show ? 'text' : 'password' " id="password" formControlName="password" placeholder="enter password" class="border outline-none bg-black w-full h-10 rounded-lg indent-2 focus:shadow-md focus:shadow-white"></div>
                     </div>
                     <div class="flex mt-5 gap-2 items-center">
-                        <div class="flex items-center gap-2"><input type="checkbox"><span>show password</span></div>
+                        <div class="flex items-center gap-2"><input type="checkbox" (click)="password()" formControlName="showPassword"><span>show password</span></div>
                         
                     </div>
                     <div class="flex justify-center mt-10 bg-pink-200 text-blue-700 rounded-full font-bold py-2 hover:bg-red-900 hover:text-white">
                         <div class="flex justify-center items-center gap-2 text-lg "><span>continue with</span> <img src="../../assets/google-g-icon-removebg-preview.png" alt="" class="h-5 w-5"></div>
                     </div>
                     <div class="flex justify-center mt-2 bg-blue-800 text-pink-200 rounded-full font-bold py-2 text-xl hover:bg-red-900 hover:text-white">
-                        <button>sign in</button>
+                        <button type="submit">sign in</button>
                     </div>
                 </form>
             </div>

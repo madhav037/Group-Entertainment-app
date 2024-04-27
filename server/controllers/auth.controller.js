@@ -31,6 +31,8 @@ export const signup = async (req,res,next) => {
         return;
     }
 
+    console.log('sign up successfull');
+
     res.status(201).json(user)
 }
 
@@ -63,9 +65,21 @@ export const signin = async (req,res,next) => {
 
     const { password: pass, ...user } = data
 
+    console.log('sign in successfull');
+    
     res.cookie("access_token", token, {
         httpOnly: true
     })
     .status(200)
     .json(user)
+
+    
+}
+
+export const getUser = async (req, res, next) => {
+    const { data, error } = await supabase
+    .from('user')
+    .select('*')
+
+    res.json(data);
 }
