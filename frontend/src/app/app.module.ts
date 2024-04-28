@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
-
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SignInPageComponent } from './sign-in-page/sign-in-page.component';
@@ -9,6 +11,15 @@ import { HeroSectionPageComponent } from './hero-section-page/hero-section-page.
 import { HomePageComponent } from './home-page/home-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+
+const firebaseConfig = {
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: "mern-demo-21427.firebaseapp.com",
+  projectId: "mern-demo-21427",
+  storageBucket: "mern-demo-21427.appspot.com",
+  messagingSenderId: "704063245767",
+  appId: "1:704063245767:web:67b55fa264eb14f3831de2",
+};
 
 @NgModule({
   declarations: [
@@ -23,7 +34,11 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   providers: [
     provideClientHydration()

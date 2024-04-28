@@ -36,4 +36,10 @@ export class SignInPageComponent {
     })
     
   }
+
+  checkRes(){
+    if (true) {
+
+    }
+  }
 }
