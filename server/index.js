@@ -4,6 +4,7 @@ import userRouter from "./routes/user.route.js";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { createClient } from "@supabase/supabase-js";
+import cors from 'cors';
 console.log("hello");
 
 const app = express();
@@ -17,6 +18,7 @@ export default supabase;
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({ origin: 'http://localhost:4200' }));
 
 app.use("/api/auth", authRouter);
 app.use('/api/user', userRouter);
