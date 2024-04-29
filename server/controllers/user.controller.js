@@ -151,3 +151,17 @@ export const addFriend = async (req, res, next) => {
         return;
     }
 }
+
+export const getUser = async (req, res, next) => {
+    const { data, error } = await supabase
+    .from('user')
+    .select('*')
+
+    res.json(data);
+}
+
+export const currentUser = async (req, res) => {
+    const {data, error} = await supabase.from('user').select('*').eq('id, req.body.id')
+
+    res.json(data);
+}

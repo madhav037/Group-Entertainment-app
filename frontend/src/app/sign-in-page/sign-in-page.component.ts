@@ -1,13 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { SigninService } from '../signin.service';
-
+import { Router } from '@angular/router';
+import { getUserInfo, setUserInfo } from '../global';
+import { Store, select } from '@ngrx/store';
 @Component({
   selector: 'app-sign-in-page',
   templateUrl: './sign-in-page.component.html',
   styleUrl: './sign-in-page.component.css'
 })
 export class SignInPageComponent {
+
   show = false;
 
   signInData = new FormGroup(
@@ -26,20 +29,30 @@ export class SignInPageComponent {
     this.show = !this.show;
   }
 
-  constructor(private userData:SigninService) {  }
+  constructor(private userData:SigninService, private router : Router, private store:Store) {  }
+
+  
 
   postUserData(data:any) 
   {
-    this.userData.postUser(data).subscribe((temp) => {
-      console.log(temp);
+    this.userData.postUser(data.value).subscribe((temp) => {
+
+      let body = temp.body as {name : String, id : Number, created_at : any, email : String, profile_picture : String, friends : any};
       
+      localStorage.setItem("userInfo" , JSON.stringify(body));
+      
+      if (temp.status === 200) {
+        this.router.navigateByUrl('/home');
+      }
+      else
+      {
+        window.alert('invalid details...');
+      }
     })
     
   }
 
   checkRes(){
-    if (true) {
-
-    }
+    this.postUserData(this.signInData);
   }
 }

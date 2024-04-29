@@ -42,7 +42,7 @@ export const signin = async (req,res,next) => {
 
     const { data, error } = await supabase
     .from('user')
-    .select('email, password, id')
+    .select('*')
     .eq('email',email)
     .single()
 
@@ -124,6 +124,7 @@ export const google = async (req,res,next) => {
 
 export const signout = async (req,res,next) => {
     try {
+        // localStorage.removeItem("userInfo");
         res.clearCookie("access_token")
         res.status(200).send("signout successful")
     } catch (error) {
@@ -131,12 +132,4 @@ export const signout = async (req,res,next) => {
     }
 
     
-}
-
-export const getUser = async (req, res, next) => {
-    const { data, error } = await supabase
-    .from('user')
-    .select('*')
-
-    res.json(data);
 }

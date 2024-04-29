@@ -1,0 +1,26 @@
+<div class="bg-black text-white flex flex-col h-screen">
+    <div class="w-full h-full flex justify-center items-center" style="background-image: url('../../assets/user.png');background-size: cover;">
+        <div class="w-3/4 h-3/4 bg-black flex flex-col justify-center items-center p-10" style="box-shadow:inset 0px 0px 10px #ffffff2c;">
+            <div class="flex justify-center ">
+                <img [src]="userData?.profile_picture" alt="" class="w-56 h-56 rounded-full">
+                <i class="fa fa-edit relative top-52 -left-16 cursor-pointer" (click)="openFileUploader()"></i>
+                <input type="file" id="fileInput" style="display: none;" (change)="handleFileInput($event)">
+            </div>
+            <div class="mt-4 text-4xl font-serif font-bold">
+                <p>{{userData?.name}}</p>
+            </div>
+            <div class="flex mt-10 gap-2">
+                <p>{{userData?.email}}<span class="text-slate-500 font-bold"> ( EmailId ) </span></p>
+            </div>
+            <div>
+                <div *ngFor="let items of userData?.friends">{{items}}</div>
+            </div>
+            <div class="flex gap-2">
+                <p>{{userData?.created_at}}<span class="text-slate-500 font-bold"> ( Created At ) </span></p>
+            </div>
+            <div class="mt-10">
+                <button class="text-xl text-black font-extrabold rounded-2xl bg-slate-700 px-10 py-2" (click)="signOut()">Sign Out</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,6 +11,6 @@ export class SignupService {
   constructor(private _http:HttpClient) { }
 
   postUser(data:any){
-    return this._http.post(this.apiUrl, data)
+    return this._http.post(this.apiUrl, data ,{observe : 'response'})
   }
 }

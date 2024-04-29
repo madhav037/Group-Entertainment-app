@@ -1,16 +1,36 @@
-.main-container
-{
-    animation-name: flow;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-}
-
-@keyframes flow {
-    from {
-        box-shadow: 0px 0px 10px pink;
+.main-container{
+  
+    --border-angle: 0turn;
+    --main-bg: conic-gradient(
+        from var(--border-angle),
+        #213,
+        #112 5%,
+        #112 60%,
+        #213 95%
+      );
+    
+    border: solid 5px transparent;
+    border-radius: 2em;
+    --gradient-border: conic-gradient(from var(--border-angle), transparent 25%, #08f, #f03 99%, transparent);
+    
+    background: 
+      var(--main-bg) padding-box,
+      var(--gradient-border) border-box, 
+       var(--main-bg) border-box;
+    
+    background-position: center center;
+  
+    animation: bg-spin 5s linear infinite;
+  }
+  @keyframes bg-spin {
+      to {
+        --border-angle: 1turn;
+      }
     }
-    to {
-        box-shadow: 0px 0px 40px pink;
-    }
-}
+  
+  @property --border-angle {
+    syntax: "<angle>";
+    inherits: true;
+    initial-value: 0turn;
+  }
+  

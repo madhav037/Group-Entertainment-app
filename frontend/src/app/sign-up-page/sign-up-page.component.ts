@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { SignupService } from '../signup.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up-page',
@@ -29,13 +30,26 @@ export class SignUpPageComponent {
     this.show = !this.show;
   }
 
-  constructor(private userData:SignupService){  }
+  constructor(private userData:SignupService, private router:Router){  }
 
   postUserData(data:any){
     console.log(data.value);
-    this.userData.postUser(data).subscribe((temp) => {
+    this.userData.postUser(data.value).subscribe((temp) => {
       console.log(temp);
+
+      if (temp.status === 201) {
+        this.router.navigateByUrl('/signin');
+      }
+      else
+      {
+        window.alert('invalid details...');
+      }
     })
     
+  }
+
+  checkRes()
+  {
+    this.postUserData(this.signUpData);
   }
 }
