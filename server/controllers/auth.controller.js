@@ -30,10 +30,20 @@ export const signup = async (req,res,next) => {
         res.status(500).json({"signup error" : err})
         return;
     }
+    const {data: signupedUser, error : errorr} = await supabase.auth.signUp({ email, password, options : {
+        data: {
+            name: name
+        }
+    } })
+
+    if (errorr) {
+        res.status(500).json({"signup error" : errorr})
+        return;
+    }
 
     console.log('sign up successfull');
 
-    res.status(201).json(user)
+    res.status(201).json(signupedUser)
 }
 
 
@@ -47,7 +57,7 @@ export const signin = async (req,res,next) => {
     .single()
 
     if (error) {
-        res.status(500).json({"signin error" : error})
+        res.status(500).json({"signin error local" : error})
         return;
     }
     
@@ -61,6 +71,14 @@ export const signin = async (req,res,next) => {
         return;
     }
 
+    const {data: signinedUser, error : eorr} = await supabase.auth.signInWithPassword({ email : email, password : password})
+
+    if (eorr) {
+        console.log(eorr);  
+        res.status(500).json({"signin error supabase" : eorr})
+        return;
+    }
+
     const token = jwt.sign({id : data.id}, process.env.JWT_SECRET)
 
     const { password: pass, ...user } = data
@@ -71,7 +89,7 @@ export const signin = async (req,res,next) => {
         httpOnly: true
     })
     .status(200)
-    .json(user)
+    .json(signinedUser)
 }
 
 export const google = async (req,res,next) => {
@@ -87,6 +105,21 @@ export const google = async (req,res,next) => {
             return;
         }
 
+        const { data: googleData, error: googleError } = await supabase.auth.signInWithOAuth({
+            provider: 'google',
+            options: {
+              queryParams: {
+                access_type: 'offline',
+                prompt: 'consent',
+              },
+            },
+          })
+          if (googleError) {
+            res.status(500).json({"google error" : googleError})
+            return;
+          }
+          
+
         if (data) {
             const token = jwt.sign({id : data.id}, process.env.JWT_SECRET)
             const { password: pass, ...user } = data
@@ -94,7 +127,7 @@ export const google = async (req,res,next) => {
                 httpOnly: true
             })
             .status(200)
-            .json(user)
+            .json(googleData)
         } else {
             const generatedPassword = Math.random().toString(36).slice(-8)
             const hashedPassword = bcryptjs.hashSync(generatedPassword, 10)
@@ -125,11 +158,14 @@ export const google = async (req,res,next) => {
 export const signout = async (req,res,next) => {
     try {
         // localStorage.removeItem("userInfo");
+        const {error} = supabase.auth.signOut()
+        if (error) {
+            res.status(500).json({"signout error" : error})
+            return;
+        }
         res.clearCookie("access_token")
         res.status(200).send("signout successful")
     } catch (error) {
         res.status(500).json({"signout error" : error})
     }
-
-    
 }

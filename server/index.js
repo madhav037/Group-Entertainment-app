@@ -5,7 +5,22 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import { createClient } from "@supabase/supabase-js";
 import cors from 'cors';
+import { Server } from "socket.io";
 console.log("hello");
+
+const server = new Server()
+
+server.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
+  socket.on('message', (msg) => {
+    socket.broadcast.emit('message', msg);
+  })
+});
+server.listen(4000)
+
 
 const app = express();
 dotenv.config();

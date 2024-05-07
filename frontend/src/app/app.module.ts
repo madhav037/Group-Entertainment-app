@@ -13,6 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { StoreModule } from '@ngrx/store';
+import { ChatComponent } from './components/chat/chat.component';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 
 // const firebaseConfig = {
 //   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -22,6 +24,7 @@ import { StoreModule } from '@ngrx/store';
 //   messagingSenderId: "704063245767",
 //   appId: "1:704063245767:web:67b55fa264eb14f3831de2",
 // };
+const config : SocketIoConfig = { url: 'http://localhost:4000', options: {} };
 
 @NgModule({
   declarations: [
@@ -30,7 +33,8 @@ import { StoreModule } from '@ngrx/store';
     SignUpPageComponent,
     HeroSectionPageComponent,
     HomePageComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +42,8 @@ import { StoreModule } from '@ngrx/store';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    StoreModule.forRoot({})
+    StoreModule.forRoot({}),
+    SocketIoModule.forRoot(config)
     // AngularFireModule.initializeApp(firebaseConfig),
     // AngularFirestoreModule,
     // AngularFireAuthModule
