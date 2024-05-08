@@ -160,8 +160,8 @@ export const getUser = async (req, res, next) => {
     res.json(data);
 }
 
-export const currentUser = async (req, res) => {
-    const {data, error} = await supabase.from('user').select('*').eq('id, req.body.id')
+export const getCurrentUser = async (req, res) => {
+    const {data, error} = await supabase.auth.getUser()
 
     res.json(data);
 }
