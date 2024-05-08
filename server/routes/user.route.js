@@ -1,5 +1,5 @@
 import express from 'express';
-import { addFriend, changePassword, getProfilePicture, uploadProfilePicture } from '../controllers/user.controller.js';
+import { addFriend, changePassword, getProfilePicture, getUser, uploadProfilePicture } from '../controllers/user.controller.js';
 import multer from 'multer';
 import { google } from '../controllers/auth.controller.js';
 const router = express.Router()
@@ -10,5 +10,6 @@ router.get('/getProfilePicture', getProfilePicture)
 router.put('/changePassword', changePassword)
 router.put('/addFriend', addFriend)
 router.post('/google', google)
+router.get('/all', getUser)
 
 export default router;

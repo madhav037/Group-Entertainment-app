@@ -31,8 +31,6 @@ export class SignInPageComponent {
 
   constructor(private userData:SigninService, private router : Router, private store:Store) {  }
 
-  
-
   postUserData(data:any) 
   {
     this.userData.postUser(data.value).subscribe((temp) => {
