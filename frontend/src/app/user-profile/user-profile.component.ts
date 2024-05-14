@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserProfileService } from '../user-profile.service';
 
@@ -8,18 +8,15 @@ import { UserProfileService } from '../user-profile.service';
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.css'
 })
-export class UserProfileComponent {
+export class UserProfileComponent implements OnInit{
+
+    name!:string;
+    email!:string;
+    createdAt!:string;
+    image!:string;
 
   selectedFile:any;
-  constructor(private router:Router, private imageData:UserProfileService){}
-
-  data: string | null = localStorage.getItem('userInfo');
-  userData: {name : String, id : Number, created_at : any, email : String, profile_picture : String, friends : any} | null = this.data ? JSON.parse(this.data) : null;
-
-  signOut() {
-    localStorage.removeItem('userInfo');
-
-    this.router.navigate(['/']);
+  constructor(private router:Router, private serverData:UserProfileService){
   }
 
   openFileUploader() {
@@ -31,12 +28,26 @@ export class UserProfileComponent {
 
   handleFileInput(event: any) {
     const file = event.target.files[0];
-    this.selectedFile = file.name;
+    // this.selectedFile = file.name;
     console.log('Selected file:', file);
 
-    // this.imageData.postImage(this.selectedFile).subscribe(temp => {
-    //   console.log(temp);
-    // })
+    this.serverData.postImage(this.selectedFile).subscribe(temp => {
+      console.log(temp);
+    })
   }
 
+  ngOnInit(): void {
+    this.serverData.getUserData().subscribe((userData : any) => {
+      if(userData && userData.user && userData.user.user_metadata)
+        {
+          this.name = userData.user.user_metadata.name;
+          this.email = userData.user.user_metadata.email;
+          this.createdAt = userData.user.created_at;
+        }
+    });
+  }
+
+  signOut() {
+
+  }
 }

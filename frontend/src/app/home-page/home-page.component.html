@@ -1,98 +1,47 @@
-<div class="bg-black text-white h-screen overflow-x-hidden">
-    <div class="flex relative justify-between items-center py-5 px-10 w-full text-black font-bold text-xl" style="background-color: #ffffff20; color : #c4c4c4;">
-        <div class="flex flex-col ">
-            <span >Calling Game Club</span>
-            <span class="text-xs -m-1 ms-0 font-semibold">Group Chat Video Entertainment</span>
+<div class="bg-black h-screen overflow-x-hidden text-white">
+    <div class="flex">
+        <div class="h-screen m-5 pt-5 flex flex-col gap-3 text-2xl items-center cursor-pointer">
+            <div routerLink="/profile"><i class="fa fa-user"></i></div>
+            <div (click)="onChat()"><i class="fa fa-comment-o"></i></div>
+            <div (click)="onVideo()"><i class="fa fa-video-camera"></i></div>
+            <div (click)="onGame()"><i class="fa fa-puzzle-piece"></i></div>
+            <div (click)="onAllUser()"><i class="fa fa-plus"></i></div>
         </div>
-        <div class="flex gap-3">
-            <div class="hover:text-rose-500 hover:underline"><a routerLink="/home">Home</a></div>
-            <div class="hover:text-rose-500 hover:underline"><a routerLink="/profile"><i class="fa fa-user"></i></a></div>
-        </div>
-    </div>
-    <div class="flex gap-5 w-full p-5 h-5/6">
-        <div class="w-1/4 h-full flex p-5" style="background-image: url('../../assets/bg.png'); background-size: cover;">
-            <div class="w-full">
-                <div class=" flex gap-2 justify-center font-serif text-xl"><span><i class="fa fa-group"></i></span>Friends</div>
-                <div class="flex gap-1 items-center justify-center bg-black rounded-full mt-1"><span><i class="fa fa-search text-sm"></i></span><input type="text" class="outline-none border-non bg-black text-xs indent-1 w-5/6 h-8" placeholder="serach..."></div>
+        <div class=" mt-5 p-5 flex flex-col gap-2 text-xl items-start" style="box-shadow: inset 0px 0px 30px #ffffff2f;">
+            <div class="font-bold text-3xl text-blue-500">Friends</div>
+            <div *ngIf="count === 0">
+                
             </div>
-        </div>
-        <div class="w-3/4 h-full p-3" style="background-image: url('../../assets/bg.png'); background-size: cover;">
-            <div class="h-full">
-                <div class="text-center text-xl font-bold h-1/6">
-                    Name Of Friend
-                </div>
-    
-                <div class="h-4/6">
-                    <div class=" text-black w-full flex justify-start">
-                        <div class="bg-white w-fit py-1 px-5 rounded-lg">
-                            <div class="font-bold text-lg">Hii</div>
-                            <div class="text-xs">Time</div>
+            <div *ngIf="count === 4">
+                <div *ngFor="let item of userList" >
+                    <div class="flex my-4 justify-between">
+                        <div class="flex gap-4">
+                            <div>
+                                <img [src]="item.profile_picture" alt="" class="w-10 h-10 rounded-full">
+                            </div>
+                            <div class="flex flex-col justify-center">
+                                <div class="text-sm">{{item.name}}</div>
+                                <div class="text-xs">{{item.email}}</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class=" text-white w-full flex justify-end">
-                        <div class="bg-black w-fit py-1 px-5 rounded-lg">
-                            <div class="font-bold text-lg">Hello</div>
-                            <div class="text-xs">Time</div>
+                        <div class="items-center flex ms-3">
+                            <button class="bg-white text-black font-bold text-sm px-2 py-1 rounded-xl"> Add </button>
                         </div>
                     </div>
                 </div>
-    
-                <div class="h-1/6 w-full flex items-end justify-center">
-                    <div class="w-5/6"><input type="text" class="w-full outline-none border-none bg-black rounded-full p-2 text-sm" placeholder="message"></div>
-                    <div class="bg-green-600 py-1 px-3 rounded-xl"><button><i class="fa fa-paper-plane"></i></button></div>
-                </div>
             </div>
         </div>
-    </div>
-    <div class="h-screen w-full p-12 bg-black">
-        <div class="w-full h-full border flex justify-center items-center text-5xl font-bold flex-col gap-3">
-            <div>Start a Video Call</div>
-            <button class="bg-blue-500 text-base py-2 px-10 rounded-full">Go</button>
+        <div class="h-screen mt-5 p-5 w-full flex justify-center" *ngIf="count === 0" style="box-shadow:inset 0px 0px 30px #ffffff2f;">
+            Welcome {{name}}
         </div>
-        
-    </div>
-    <div class="h-screen w-full p-10 bg-black">
-        <div class="w-full h-full" style="background-image: url('../../assets/bg3.png');background-size: cover;">
-            <div class="w-full h-full flex flex-col justify-center items-center text-6xl font-bold gap-3">
-                <div>Play a Game</div>
-                <button class="bg-blue-500 rounded-full text-base px-10 py-2">Run</button>
-            </div>
+        <div class="h-screen mt-5 p-5 w-full flex justify-center" *ngIf="count === 1" style="box-shadow:inset 0px 0px 30px #ffffff2f;">
+            Start Chat
         </div>
-    </div>
-    <div class="footer flex bg-black" >
-        <footer class='flex flex-row p-3' style="background-color: #ffffff20;">
-            <div class="left p-5 mt-5 flex flex-col gap-3" style="width:40%">
-                <div><p class='font-bold text-xs text-gray-100'>"Connect, chat, and play together seamlessly on our interactive platform. Engage in group chats, video calls, and immersive gaming experiences all in one place!"</p></div>
-                <div class='flex flex-row gap-3'><img src="../../assets/Logo_of_Twitter.svg.png" alt="" width="30px" height="30px" />
-                    <img src="../../assets/Instagram_logo_2016.svg.webp" alt="" width="30px" height="30px" />
-                    <img src="../../assets/facebook.png" alt="" width="30px" height="30px" />
-                    <img src="../../assets/702300.png" alt="" width="30px" height="30px" /></div>
-            </div>
-            <div class="right flex flex-row gap-3 p-5 justify-end" style="width: 50%;">
-                <div class='flex flex-col gap-2 p-3  text-xs'>
-                    <div class='font-black text-slate-500 text-base'>About</div>
-                    <div>Contact Us</div>
-                    <div>Careers</div>
-                    <div>Press Release</div>
-                    <div>About Us</div>
-                </div>
-                <div class='flex flex-col gap-2 p-3  text-xs'>
-                    <div class='font-black text-slate-500  text-base'>Help</div>
-                    <div>Payment</div>
-                    <div>Shipping</div>
-                    <div>Cancellation</div>
-                    <div>Return</div>
-                    <div>FAQ</div>
-                </div>
-                <div class='flex flex-col gap-2 p-3  text-xs'>
-                    <div class='font-black text-slate-500  text-base'>Consumer Policy</div>
-                    <div>Cancellation & Return</div>
-                    <div>Terms of Use</div>
-                    <div>Security</div>
-                    <div>Privacy</div>
-                    <div>Sitemap</div>
-                </div>
-            </div>
-        </footer>
+        <div class="h-screen mt-5 p-5 w-full flex justify-center" *ngIf="count === 2" style="box-shadow:inset 0px 0px 30px #ffffff2f;">
+            Start Video
+        </div>
+        <div class="h-screen mt-5 p-5 w-full flex justify-center" *ngIf="count === 3" style="box-shadow:inset 0px 0px 30px #ffffff2f;">
+            Start Game
+        </div>
     </div>
 </div>

@@ -36,10 +36,6 @@ export class SignInPageComponent {
   postUserData(data:any) 
   {
     this.userData.postUser(data.value).subscribe((temp) => {
-
-      let body = temp.body as {name : String, id : Number, created_at : any, email : String, profile_picture : String, friends : any};
-      
-      localStorage.setItem("userInfo" , JSON.stringify(body));
       
       if (temp.status === 200) {
         this.router.navigateByUrl('/home');

@@ -12,18 +12,18 @@ export class ChatComponent implements OnInit{
   public messages : any[] = [];
 
   ngOnInit(): void {
-      this.listAllMessages();
+      this.listAllMessagesData();
   }
 
   constructor(private chatService : ChatService) { }
 
-  public sendMessage() {
+  public sendMessageData() {
     this.chatService.sendMessage(this.message);
     this.messages.push(this.message);
     this.message = '';
   }
 
-  public listAllMessages() {
+  public listAllMessagesData() {
     this.chatService.listAllMessages().subscribe((data) => {
       this.messages.push(data);
     }) 
